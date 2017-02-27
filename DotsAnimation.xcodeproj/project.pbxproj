@@ -74,7 +74,7 @@
 				B9944AE21E30715B002F38F0 /* AppAppearance.swift */,
 			);
 			name = DotsAnimation;
-			path = LoginAnimation;
+			path = DotsAnimation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,7 +93,7 @@
 			dependencies = (
 			);
 			name = DotsAnimation;
-			productName = LoginAnimation;
+			productName = DotsAnimation;
 			productReference = 9AF9F11C1D9E3F5B0048C6F9 /* DotsAnimation.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -279,9 +279,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V84HZ6VA6W;
-				INFOPLIST_FILE = LoginAnimation/Info.plist;
+				INFOPLIST_FILE = DotsAnimation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = is.handsome.LoginAnimation;
+				PRODUCT_BUNDLE_IDENTIFIER = is.handsome.DotsAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -292,9 +292,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V84HZ6VA6W;
-				INFOPLIST_FILE = LoginAnimation/Info.plist;
+				INFOPLIST_FILE = DotsAnimation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = is.handsome.LoginAnimation;
+				PRODUCT_BUNDLE_IDENTIFIER = is.handsome.DotsAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
