@@ -22,7 +22,7 @@
 		9A1105531DF4622700C510D4 /* ConfirmationAnimatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationAnimatedView.swift; sourceTree = "<group>"; };
 		9A4815F31DA8369700D288A9 /* utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		9AD3F5CE1E11BADB008B6C3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9AF9F11C1D9E3F5B0048C6F9 /* LoginAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AF9F11C1D9E3F5B0048C6F9 /* DotsAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DotsAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AF9F11F1D9E3F5B0048C6F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9AF9F1211D9E3F5B0048C6F9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9AF9F1241D9E3F5B0048C6F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		9AF9F1131D9E3F5B0048C6F9 = {
 			isa = PBXGroup;
 			children = (
-				9AF9F11E1D9E3F5B0048C6F9 /* LoginAnimation */,
+				9AF9F11E1D9E3F5B0048C6F9 /* DotsAnimation */,
 				9AF9F11D1D9E3F5B0048C6F9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +54,12 @@
 		9AF9F11D1D9E3F5B0048C6F9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9AF9F11C1D9E3F5B0048C6F9 /* LoginAnimation.app */,
+				9AF9F11C1D9E3F5B0048C6F9 /* DotsAnimation.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9AF9F11E1D9E3F5B0048C6F9 /* LoginAnimation */ = {
+		9AF9F11E1D9E3F5B0048C6F9 /* DotsAnimation */ = {
 			isa = PBXGroup;
 			children = (
 				9AF9F11F1D9E3F5B0048C6F9 /* AppDelegate.swift */,
@@ -73,15 +73,16 @@
 				9AF9F12B1D9E3F5B0048C6F9 /* Info.plist */,
 				B9944AE21E30715B002F38F0 /* AppAppearance.swift */,
 			);
+			name = DotsAnimation;
 			path = LoginAnimation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9AF9F11B1D9E3F5B0048C6F9 /* LoginAnimation */ = {
+		9AF9F11B1D9E3F5B0048C6F9 /* DotsAnimation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9AF9F12E1D9E3F5B0048C6F9 /* Build configuration list for PBXNativeTarget "LoginAnimation" */;
+			buildConfigurationList = 9AF9F12E1D9E3F5B0048C6F9 /* Build configuration list for PBXNativeTarget "DotsAnimation" */;
 			buildPhases = (
 				9AF9F1181D9E3F5B0048C6F9 /* Sources */,
 				9AF9F1191D9E3F5B0048C6F9 /* Frameworks */,
@@ -91,9 +92,9 @@
 			);
 			dependencies = (
 			);
-			name = LoginAnimation;
+			name = DotsAnimation;
 			productName = LoginAnimation;
-			productReference = 9AF9F11C1D9E3F5B0048C6F9 /* LoginAnimation.app */;
+			productReference = 9AF9F11C1D9E3F5B0048C6F9 /* DotsAnimation.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -103,7 +104,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Olga Konoreva";
 				TargetAttributes = {
 					9AF9F11B1D9E3F5B0048C6F9 = {
@@ -113,7 +114,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9AF9F1171D9E3F5B0048C6F9 /* Build configuration list for PBXProject "LoginAnimation" */;
+			buildConfigurationList = 9AF9F1171D9E3F5B0048C6F9 /* Build configuration list for PBXProject "DotsAnimation" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -126,7 +127,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9AF9F11B1D9E3F5B0048C6F9 /* LoginAnimation */,
+				9AF9F11B1D9E3F5B0048C6F9 /* DotsAnimation */,
 			);
 		};
 /* End PBXProject section */
@@ -198,6 +199,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -247,6 +249,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -300,7 +303,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9AF9F1171D9E3F5B0048C6F9 /* Build configuration list for PBXProject "LoginAnimation" */ = {
+		9AF9F1171D9E3F5B0048C6F9 /* Build configuration list for PBXProject "DotsAnimation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9AF9F12C1D9E3F5B0048C6F9 /* Debug */,
@@ -309,7 +312,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9AF9F12E1D9E3F5B0048C6F9 /* Build configuration list for PBXNativeTarget "LoginAnimation" */ = {
+		9AF9F12E1D9E3F5B0048C6F9 /* Build configuration list for PBXNativeTarget "DotsAnimation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9AF9F12F1D9E3F5B0048C6F9 /* Debug */,

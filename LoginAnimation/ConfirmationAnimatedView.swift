@@ -47,7 +47,6 @@ class ConfirmationAnimatedView : UIView {
     }
     
     func finish() {
-        disapearAfrerFinish = true
         finish(with: 0)
     }
     
