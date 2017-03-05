@@ -8,13 +8,15 @@
 
 import UIKit
 
+let kDotSize: CGFloat = 15
+
 class DotView: UIView {
     
     private var color: UIColor
     
     init(color: UIColor) {
         self.color = color
-        super.init(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
+        super.init(frame: CGRect(x: 0, y: 0, width: kDotSize, height: kDotSize))
         clipsToBounds = true
         backgroundColor = UIColor.clear
     }

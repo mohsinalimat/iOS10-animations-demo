@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LoginAnimation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DotsAnimation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -50,13 +50,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_monster" translatesAutoresizingMaskIntoConstraints="NO" id="ggm-hk-OmZ">
-                                <rect key="frame" x="30" y="70" width="315" height="300"/>
+                                <rect key="frame" x="30" y="100" width="315" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="vXU-d9-7DF"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS 10 Animations API" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uI-S4-jX3">
-                                <rect key="frame" x="103" y="380" width="169" height="20.5"/>
+                                <rect key="frame" x="103" y="410" width="169" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -72,7 +72,7 @@
                             <constraint firstItem="eAA-j3-QR7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="T8O-ld-438"/>
                             <constraint firstItem="9uI-S4-jX3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TYZ-L1-KeW"/>
                             <constraint firstItem="e4z-zz-df5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TrI-GQ-2RD"/>
-                            <constraint firstItem="ggm-hk-OmZ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="UQE-vP-JF5"/>
+                            <constraint firstItem="ggm-hk-OmZ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="80" id="UQE-vP-JF5"/>
                             <constraint firstItem="eAA-j3-QR7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="240" id="Vrc-B9-cBX"/>
                             <constraint firstItem="ggm-hk-OmZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="30" id="a2q-iA-dtg"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="33J-66-aKq" secondAttribute="bottom" id="nCV-MY-AoE"/>

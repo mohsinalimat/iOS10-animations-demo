@@ -40,16 +40,22 @@ class ConfirmationAnimatedView : UIView {
             self.dotView.frame = CGRect(x: startPoint.x - self.kConfirmationFinalSize / 2, y: startPoint.y - self.kConfirmationFinalSize / 2, width: self.kConfirmationFinalSize, height: self.kConfirmationFinalSize)
         }, completion : nil)
 
-        UIView.animate(withDuration: 0.0, delay: 0.3, animations: {
-        }, completion : { _ in
-            self.showCorrectMark(startPoint: startPoint)
-        })
+        showCorrectMark(startPoint: startPoint)
     }
-    
-    func finish() {
-        finish(with: 0)
+
+    func dotViewCenter() -> CGPoint {
+        return dotView.center
     }
-    
+
+    func addCompletionActions() {
+        let center = self.dotView.center
+        self.first.alpha = 0
+        self.second.alpha = 0
+        self.first.frame = CGRect(x: center.x, y: center.y, width: 0, height: 0)
+        self.second.frame = CGRect(x: center.x, y: center.y, width: 0, height: 0)
+        self.dotView.frame = CGRect(x: center.x - kDotSize / 2, y: center.y - kDotSize / 2, width: 15, height: 15)
+    }
+
     private func showCorrectMark(startPoint: CGPoint) {
         let smallMarkSize = CGFloat(10)
         let bigMarkSize = CGFloat(20)
@@ -59,10 +65,13 @@ class ConfirmationAnimatedView : UIView {
         let controlPoint1 = CGPoint(x: 0.25, y: 0.1)
         let controlPoint2 = CGPoint(x: 0.25, y: 1)
 
-        let firstLineAnimator = UIViewPropertyAnimator(duration: 0.13, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
+        let firstLineAnimator = UIViewPropertyAnimator(duration: 0.43, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+        
+        firstLineAnimator.addAnimations({
             self.first.frame = CGRect(x: self.first.frame.origin.x, y: self.first.frame.origin.y, width: smallMarkSize + 1, height: smallMarkSize)
             self.first.setNeedsDisplay()
-        })
+        }, delayFactor: 0.7)
+
         firstLineAnimator.addCompletion({ _ in
             self.second.isHidden = false
 
@@ -86,17 +95,11 @@ class ConfirmationAnimatedView : UIView {
         addSubview(lineView)
         return lineView
     }
-    
+
     private func finish(with delay: TimeInterval) {
-        UIView.animate(withDuration: 0.41, delay: delay, options: .curveEaseInOut, animations: {
-            let center = self.dotView.center
-            self.first.alpha = 0
-            self.second.alpha = 0
-            self.first.frame = CGRect(x: center.x, y: center.y, width: 0, height: 0)
-            self.second.frame = CGRect(x: center.x, y: center.y, width: 0, height: 0)
-            self.dotView.frame = CGRect(x: center.x - 15 / 2, y: center.y - 15 / 2, width: 15, height: 15)
-            }, completion: { _ in
-                self.didFinish?()
+        UIView.animate(withDuration: 0.0, delay: delay, animations: {
+        }, completion : { _ in
+            self.didFinish?()
         })
     }
 }

@@ -16,7 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var logoImageView: UIImageView!
     
-    private  let animationHeight: CGFloat = 24
+    private let kAnimationHeight: CGFloat = 24
+    private let kDotsJumpsCountMax = 5
     
     private let controlPoint1 = CGPoint(x: 0.25, y: 0.1)
     private let controlPoint2 = CGPoint(x: 0.25, y: 1)
@@ -46,10 +47,10 @@ class ViewController: UIViewController {
     }
     
     func animateJumpUp() {
-        buttonCenter = fakeButtonView.center
+        self.buttonCenter = fakeButtonView.center
         self.startButton.alpha = 0
         let animator = UIViewPropertyAnimator(duration: 0.3, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
-            self.fakeButtonView.frame = CGRect(x: 0, y: 0, width: 14, height: 14)
+            self.fakeButtonView.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
             self.fakeButtonView.center = self.buttonCenter
             self.fakeButtonView.layer.cornerRadius = 7.0
             self.descriptionLabel.alpha = 0
@@ -64,13 +65,16 @@ class ViewController: UIViewController {
             self.fakeButtonView.center.y = self.dotViewCenter.center.y
         }, delayFactor: 0.3)
         springAnimator.addCompletion { _ in
+            print("springAnimator completion fake button frame \(self.fakeButtonView.frame)")
             self.fakeButtonView.isHidden = true
+            print("springAnimator completion fake button frame \(self.fakeButtonView.frame)")
             self.dotViewLeft.isHidden = false
             self.dotViewCenter.isHidden = false
             self.dotViewRight.isHidden = false
             self.createHorizontalDotsAnimation(isForward: true)
         }
-        
+
+        print("animateJumpUp fake button frame \(self.fakeButtonView.frame)")
         animator.startAnimation()
         springAnimator.startAnimation()
     }
@@ -93,11 +97,23 @@ class ViewController: UIViewController {
             })
         } else {
             animator.addCompletion({ _ in
+                self.dotViewLeft.isHidden = true
+                self.dotViewCenter.isHidden = true
+                self.dotViewRight.isHidden = true
+
                 let confirmationAnimatedView = ConfirmationAnimatedView(color: UIColor.appBrandColor())
                 self.view.addSubview(confirmationAnimatedView)
                 confirmationAnimatedView.didFinish = {
-                    confirmationAnimatedView.removeFromSuperview()
-                    self.animateJumpDown()
+                    let finishConfirmationAnimator = UIViewPropertyAnimator(duration: 0.32, controlPoint1: self.controlPoint1, controlPoint2: self.controlPoint2, animations: {
+                        confirmationAnimatedView.addCompletionActions()
+                    })
+                    finishConfirmationAnimator.addCompletion { _ in
+                        self.fakeButtonView.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+                        self.fakeButtonView.center = confirmationAnimatedView.dotViewCenter()
+                        confirmationAnimatedView.removeFromSuperview()
+                        self.animateJumpDown()
+                    }
+                    finishConfirmationAnimator.startAnimation()
                 }
                 confirmationAnimatedView.showConfirmation(startPoint: CGPoint(x: self.view.center.x, y: 150))
             })
@@ -107,45 +123,45 @@ class ViewController: UIViewController {
     
     func createDotsAnimation() {
         let dotLeftAnimator = UIViewPropertyAnimator(duration: 0.37, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
-            self.dotViewLeft.center.y = self.dotViewLeft.center.y - self.animationHeight
+            self.dotViewLeft.center.y = self.dotViewLeft.center.y - self.kAnimationHeight
         })
         dotsUpAnimator.append(dotLeftAnimator)
         
         let dotCenterAnimator = UIViewPropertyAnimator(duration: 0.43, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
         dotCenterAnimator.addAnimations ({
-            self.dotViewCenter.center.y = self.dotViewCenter.center.y - self.animationHeight
+            self.dotViewCenter.center.y = self.dotViewCenter.center.y - self.kAnimationHeight
         }, delayFactor: 0.2)
         
         dotsUpAnimator.append(dotCenterAnimator)
         
         let dotRightAnimator = UIViewPropertyAnimator(duration: 0.53, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
         dotRightAnimator.addAnimations ({
-            self.dotViewRight.center.y = self.dotViewRight.center.y - self.animationHeight
+            self.dotViewRight.center.y = self.dotViewRight.center.y - self.kAnimationHeight
         }, delayFactor: 0.32)
         
         dotsUpAnimator.append(dotRightAnimator)
     }
     
     func startReversedDotsAnimation() {
-        if dotsJumpsCount < 5 {
+        if dotsJumpsCount < kDotsJumpsCountMax {
 
             dotsJumpsCount += 1
             toTop = !toTop
             
             dotsUpAnimator[0].addAnimations ({
-                self.dotViewLeft.center.y = self.toTop ? self.dotViewLeft.center.y - self.animationHeight : self.dotViewLeft.center.y + self.animationHeight
+                self.dotViewLeft.center.y = self.toTop ? self.dotViewLeft.center.y - self.kAnimationHeight : self.dotViewLeft.center.y + self.kAnimationHeight
             })
             
             dotsUpAnimator[1].addAnimations ({
-                self.dotViewCenter.center.y = self.toTop ? self.dotViewCenter.center.y - self.animationHeight : self.dotViewCenter.center.y + self.animationHeight
+                self.dotViewCenter.center.y = self.toTop ? self.dotViewCenter.center.y - self.kAnimationHeight : self.dotViewCenter.center.y + self.kAnimationHeight
                 }, delayFactor: 0.2)
             
             dotsUpAnimator[2].addAnimations ({
-                self.dotViewRight.center.y = self.toTop ? self.dotViewRight.center.y - self.animationHeight : self.dotViewRight.center.y + self.animationHeight
+                self.dotViewRight.center.y = self.toTop ? self.dotViewRight.center.y - self.kAnimationHeight : self.dotViewRight.center.y + self.kAnimationHeight
                 }, delayFactor: 0.32)
 
             // add complition action after finishing jumping of the third dot
-            if dotsJumpsCount == 5 {
+            if dotsJumpsCount == kDotsJumpsCountMax {
                 dotsUpAnimator[2].addCompletion { _ in
                     self.createHorizontalDotsAnimation(isForward: false)
                     self.dotsUpAnimator.removeAll()
@@ -162,24 +178,44 @@ class ViewController: UIViewController {
     }
     
     func animateJumpDown() {
-        self.dotViewLeft.isHidden = true
-        self.dotViewCenter.isHidden = true
-        
-        let velocity = CGVector(dx: 0, dy: 0)
-        let springParameters = UISpringTimingParameters(mass: 1.8, stiffness: 330, damping: 33, initialVelocity: velocity)
-        
-        let springAnimator = UIViewPropertyAnimator(duration: 0.0, timingParameters: springParameters)
-        springAnimator.addAnimations ({
-            self.fakeButtonView.center.y = self.dotViewCenter.center.y
-        }, delayFactor: 0.3)
-        springAnimator.addCompletion { _ in
-            self.fakeButtonView.isHidden = false
+        self.descriptionLabel.center.y += 50
+        self.logoImageView.center.y += 50
+        let showContentAnimator = UIViewPropertyAnimator(duration: 0.7, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+        showContentAnimator.addAnimations({ _ in
+            self.descriptionLabel.alpha = 1
+            self.logoImageView.alpha = 1
+            self.descriptionLabel.center.y -= 50
+            self.logoImageView.center.y -= 50
+            self.fakeButtonView.frame = self.startButton.frame
+        }, delayFactor: 0.6)
+
+        self.fakeButtonView.isHidden = false
+        self.fakeButtonView.backgroundColor = UIColor.gray
+        self.fakeButtonView.layer.cornerRadius = 7.0
+        self.fakeButtonView.clipsToBounds = true
+        showContentAnimator.addCompletion { _ in
             self.fakeButtonView.layer.cornerRadius = 0.0
-            self.dotViewRight.isHidden = true
-            self.startButton.alpha = 1
         }
-        
-        springAnimator.startAnimation()
+
+        let showButtonTextAnimator = UIViewPropertyAnimator(duration: 0.3, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
+            self.startButton.alpha = 1
+        })
+        showButtonTextAnimator.addCompletion { _ in 
+            let radiusFakeButtonAnimator = UIViewPropertyAnimator(duration: 0.3, controlPoint1: self.controlPoint1, controlPoint2: self.controlPoint2, animations: {
+                self.fakeButtonView.layer.cornerRadius = 0.0
+            })
+            radiusFakeButtonAnimator.startAnimation()
+        }
+
+        let animatorJumpDown = UIViewPropertyAnimator(duration: 0.49, controlPoint1: CGPoint(x: 0.68, y: -0.55), controlPoint2: CGPoint(x: 0.3, y: 1.45), animations: {
+            self.fakeButtonView.center = self.startButton.center
+        })
+        animatorJumpDown.addCompletion { _ in
+            showButtonTextAnimator.startAnimation()
+        }
+
+        animatorJumpDown.startAnimation()
+        showContentAnimator.startAnimation()
     }
     
     func finishDotsProgressAnimation() {
