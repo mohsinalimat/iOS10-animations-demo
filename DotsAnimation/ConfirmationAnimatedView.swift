@@ -13,6 +13,9 @@ class ConfirmationAnimatedView : UIView {
     private var second: LineView!
     
     private var dotView : DotView!
+
+    private let controlPoint1 = CGPoint(x: 0.25, y: 0.1)
+    private let controlPoint2 = CGPoint(x: 0.25, y: 1)
     
     init(color: UIColor) {
         super.init(frame: CGRect.zero)
@@ -47,25 +50,17 @@ class ConfirmationAnimatedView : UIView {
         return dotView.center
     }
 
-    func addCompletionActions() {
-        let center = self.dotView.center
-        self.first.alpha = 0
-        self.second.alpha = 0
-        self.first.frame = CGRect(x: center.x, y: center.y, width: 0, height: 0)
-        self.second.frame = CGRect(x: center.x, y: center.y, width: 0, height: 0)
-        self.dotView.frame = CGRect(x: center.x - kDotSize / 2, y: center.y - kDotSize / 2, width: 15, height: 15)
+    func moveDotView(to: CGPoint) {
+        self.dotView.center = to
     }
 
     private func showCorrectMark(startPoint: CGPoint) {
         let smallMarkSize = CGFloat(10)
         let bigMarkSize = CGFloat(20)
-        self.first.frame = CGRect(x: startPoint.x - 12.5, y: startPoint.y, width: 0, height: 0)
+        self.first.frame = CGRect(x: startPoint.x - 12, y: startPoint.y, width: 0, height: 0)
         self.second.frame = CGRect(x: startPoint.x - 3, y: startPoint.y + smallMarkSize, width: 0, height: 0)
 
-        let controlPoint1 = CGPoint(x: 0.25, y: 0.1)
-        let controlPoint2 = CGPoint(x: 0.25, y: 1)
-
-        let firstLineAnimator = UIViewPropertyAnimator(duration: 0.43, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+        let firstLineAnimator = UIViewPropertyAnimator(duration: 0.43, controlPoint1: self.controlPoint1, controlPoint2: self.controlPoint2)
         
         firstLineAnimator.addAnimations({
             self.first.frame = CGRect(x: self.first.frame.origin.x, y: self.first.frame.origin.y, width: smallMarkSize + 1, height: smallMarkSize)
@@ -75,13 +70,13 @@ class ConfirmationAnimatedView : UIView {
         firstLineAnimator.addCompletion({ _ in
             self.second.isHidden = false
 
-            let secondLineAnimator = UIViewPropertyAnimator(duration: 0.13, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
+            let secondLineAnimator = UIViewPropertyAnimator(duration: 0.13, controlPoint1: self.controlPoint1, controlPoint2: self.controlPoint2, animations: {
                 self.second.frame = CGRect(x: self.second.frame.origin.x - 2, y: self.second.frame.origin.y - bigMarkSize, width: bigMarkSize, height: bigMarkSize)
                 self.second.setNeedsDisplay()
             })
             secondLineAnimator.addCompletion({ _ in
-                self.finish(with: 3)
-                })
+                self.finish()
+            })
             secondLineAnimator.startAnimation()
         })
         firstLineAnimator.startAnimation()
@@ -96,18 +91,30 @@ class ConfirmationAnimatedView : UIView {
         return lineView
     }
 
-    private func finish(with delay: TimeInterval) {
-        UIView.animate(withDuration: 0.0, delay: delay, animations: {
-        }, completion : { _ in
+    private func finish() {
+        let finishConfirmationAnimator = UIViewPropertyAnimator(duration: 1.1, controlPoint1: self.controlPoint1, controlPoint2: self.controlPoint2)
+
+        finishConfirmationAnimator.addAnimations({
+
+            let center = self.dotView.center
+            self.first.alpha = 0
+            self.second.alpha = 0
+            self.first.frame = CGRect(x: center.x, y: center.y - 30, width: 0, height: 0)
+            self.second.frame = CGRect(x: center.x, y: center.y - 30, width: 0, height: 0)
+            self.dotView.frame = CGRect(x: center.x - kDotSize / 2, y: center.y - kDotSize / 2 - 30, width: 15, height: 15)
+        }, delayFactor: 0.8)
+
+        finishConfirmationAnimator.addCompletion { _ in
             self.didFinish?()
-        })
+        }
+        finishConfirmationAnimator.startAnimation()
     }
 }
 
 class LineView : UIView {
-    
-    private let lineWidth: CGFloat = 2
-    
+
+    private let lineWidth: CGFloat = 2.5
+
     private var color: UIColor
     
     init(color: UIColor) {

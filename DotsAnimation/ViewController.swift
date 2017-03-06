@@ -65,16 +65,12 @@ class ViewController: UIViewController {
             self.fakeButtonView.center.y = self.dotViewCenter.center.y
         }, delayFactor: 0.3)
         springAnimator.addCompletion { _ in
-            print("springAnimator completion fake button frame \(self.fakeButtonView.frame)")
             self.fakeButtonView.isHidden = true
-            print("springAnimator completion fake button frame \(self.fakeButtonView.frame)")
             self.dotViewLeft.isHidden = false
             self.dotViewCenter.isHidden = false
             self.dotViewRight.isHidden = false
             self.createHorizontalDotsAnimation(isForward: true)
         }
-
-        print("animateJumpUp fake button frame \(self.fakeButtonView.frame)")
         animator.startAnimation()
         springAnimator.startAnimation()
     }
@@ -104,17 +100,11 @@ class ViewController: UIViewController {
                 let confirmationAnimatedView = ConfirmationAnimatedView(color: UIColor.appBrandColor())
                 self.view.addSubview(confirmationAnimatedView)
                 confirmationAnimatedView.didFinish = {
-                    let finishConfirmationAnimator = UIViewPropertyAnimator(duration: 0.32, controlPoint1: self.controlPoint1, controlPoint2: self.controlPoint2, animations: {
-                        confirmationAnimatedView.addCompletionActions()
-                    })
-                    finishConfirmationAnimator.addCompletion { _ in
                         self.fakeButtonView.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
                         self.fakeButtonView.center = confirmationAnimatedView.dotViewCenter()
                         confirmationAnimatedView.removeFromSuperview()
                         self.animateJumpDown()
                     }
-                    finishConfirmationAnimator.startAnimation()
-                }
                 confirmationAnimatedView.showConfirmation(startPoint: CGPoint(x: self.view.center.x, y: 150))
             })
         }
@@ -180,17 +170,20 @@ class ViewController: UIViewController {
     func animateJumpDown() {
         self.descriptionLabel.center.y += 50
         self.logoImageView.center.y += 50
-        let showContentAnimator = UIViewPropertyAnimator(duration: 0.7, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+        let showContentAnimator = UIViewPropertyAnimator(duration: 0.5, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
         showContentAnimator.addAnimations({ _ in
             self.descriptionLabel.alpha = 1
             self.logoImageView.alpha = 1
             self.descriptionLabel.center.y -= 50
             self.logoImageView.center.y -= 50
             self.fakeButtonView.frame = self.startButton.frame
-        }, delayFactor: 0.6)
+        }, delayFactor: 0.43)
+
+        showContentAnimator.addCompletion { _ in
+            self.fakeButtonView.layer.cornerRadius = 0.0
+        }
 
         self.fakeButtonView.isHidden = false
-        self.fakeButtonView.backgroundColor = UIColor.gray
         self.fakeButtonView.layer.cornerRadius = 7.0
         self.fakeButtonView.clipsToBounds = true
         showContentAnimator.addCompletion { _ in
@@ -200,14 +193,14 @@ class ViewController: UIViewController {
         let showButtonTextAnimator = UIViewPropertyAnimator(duration: 0.3, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
             self.startButton.alpha = 1
         })
-        showButtonTextAnimator.addCompletion { _ in 
+        showButtonTextAnimator.addCompletion { _ in
             let radiusFakeButtonAnimator = UIViewPropertyAnimator(duration: 0.3, controlPoint1: self.controlPoint1, controlPoint2: self.controlPoint2, animations: {
                 self.fakeButtonView.layer.cornerRadius = 0.0
             })
             radiusFakeButtonAnimator.startAnimation()
         }
 
-        let animatorJumpDown = UIViewPropertyAnimator(duration: 0.49, controlPoint1: CGPoint(x: 0.68, y: -0.55), controlPoint2: CGPoint(x: 0.3, y: 1.45), animations: {
+        let animatorJumpDown = UIViewPropertyAnimator(duration: 0.29, controlPoint1: CGPoint(x: 0.68, y: 0), controlPoint2: CGPoint(x: 0.53, y: 1.3), animations: {
             self.fakeButtonView.center = self.startButton.center
         })
         animatorJumpDown.addCompletion { _ in
