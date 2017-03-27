@@ -63,17 +63,16 @@
 			isa = PBXGroup;
 			children = (
 				9AF9F11F1D9E3F5B0048C6F9 /* AppDelegate.swift */,
+				9AF9F1311D9E48940048C6F9 /* DotView.swift */,
 				9A1105531DF4622700C510D4 /* ConfirmationAnimatedView.swift */,
 				9AF9F1211D9E3F5B0048C6F9 /* ViewController.swift */,
-				9AF9F1311D9E48940048C6F9 /* DotView.swift */,
+				B9944AE21E30715B002F38F0 /* AppAppearance.swift */,
 				9A4815F31DA8369700D288A9 /* utils.swift */,
 				9AD3F5CE1E11BADB008B6C3C /* Assets.xcassets */,
 				9AF9F1231D9E3F5B0048C6F9 /* Main.storyboard */,
 				9AF9F1281D9E3F5B0048C6F9 /* LaunchScreen.storyboard */,
 				9AF9F12B1D9E3F5B0048C6F9 /* Info.plist */,
-				B9944AE21E30715B002F38F0 /* AppAppearance.swift */,
 			);
-			name = DotsAnimation;
 			path = DotsAnimation;
 			sourceTree = "<group>";
 		};

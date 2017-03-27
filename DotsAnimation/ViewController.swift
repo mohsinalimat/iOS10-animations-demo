@@ -1,10 +1,19 @@
 //
-//  ViewController.swift
-//  LoginAnimation
+// Copyright © 2017 Handsome.
 //
-//  Created by Olga Konoreva on 30/09/16.
-//  Copyright © 2016 Olga Konoreva. All rights reserved.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+/////////////////////////////////////////////////////////////////////////////
 
 import UIKit
 
@@ -46,7 +55,7 @@ class ViewController: UIViewController {
         animateJumpUp()
     }
     
-    func animateJumpUp() {
+    private func animateJumpUp() {
         self.buttonCenter = fakeButtonView.center
         self.startButton.alpha = 0
         let animator = UIViewPropertyAnimator(duration: 0.3, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
@@ -75,7 +84,7 @@ class ViewController: UIViewController {
         springAnimator.startAnimation()
     }
     
-    func createHorizontalDotsAnimation(isForward: Bool) {
+    private func createHorizontalDotsAnimation(isForward: Bool) {
         let animator = UIViewPropertyAnimator(duration: 0.3, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
             self.progressLabel.center.y = isForward ? self.progressLabel.center.y - 60 :
                 self.progressLabel.center.y + 60
@@ -84,13 +93,13 @@ class ViewController: UIViewController {
             self.dotViewRight.center.x = isForward ? self.view.center.x + self.dotViewLeft.frame.width * 1.8 : self.view.center.x
         })
         if isForward {
-            animator.addCompletion( { _ in
+            animator.addCompletion { _ in
                 self.timer = Timer.scheduledTimer(timeInterval: 0.53, target: self, selector: #selector(self.startReversedDotsAnimation), userInfo: nil, repeats: true)
                 self.createDotsAnimation()
                 for dotAnimator in self.dotsUpAnimator {
                     dotAnimator.startAnimation()
                 }
-            })
+            }
         } else {
             animator.addCompletion({ _ in
                 self.dotViewLeft.isHidden = true
@@ -111,7 +120,7 @@ class ViewController: UIViewController {
         animator.startAnimation()
     }
     
-    func createDotsAnimation() {
+    private func createDotsAnimation() {
         let dotLeftAnimator = UIViewPropertyAnimator(duration: 0.37, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
             self.dotViewLeft.center.y = self.dotViewLeft.center.y - self.kAnimationHeight
         })
@@ -150,7 +159,8 @@ class ViewController: UIViewController {
                 self.dotViewRight.center.y = self.toTop ? self.dotViewRight.center.y - self.kAnimationHeight : self.dotViewRight.center.y + self.kAnimationHeight
                 }, delayFactor: 0.32)
 
-            // add complition action after finishing jumping of the third dot
+            // Add complition action after finishing jumping of third dot
+            //
             if dotsJumpsCount == kDotsJumpsCountMax {
                 dotsUpAnimator[2].addCompletion { _ in
                     self.createHorizontalDotsAnimation(isForward: false)
@@ -167,7 +177,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func animateJumpDown() {
+    private func animateJumpDown() {
         self.descriptionLabel.center.y += 50
         self.logoImageView.center.y += 50
         let showContentAnimator = UIViewPropertyAnimator(duration: 0.5, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
@@ -211,7 +221,7 @@ class ViewController: UIViewController {
         showContentAnimator.startAnimation()
     }
     
-    func finishDotsProgressAnimation() {
+    private func finishDotsProgressAnimation() {
         timer?.invalidate()
         timer = nil
     }

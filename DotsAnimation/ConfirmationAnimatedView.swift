@@ -1,3 +1,20 @@
+//
+// Copyright © 2017 Handsome.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+/////////////////////////////////////////////////////////////////////////////
+
 import UIKit
 
 class ConfirmationAnimatedView : UIView {
@@ -54,6 +71,11 @@ class ConfirmationAnimatedView : UIView {
         self.dotView.center = to
     }
 
+
+    // MARK: - Private
+    //
+    /////////////////////////////////////////////////////////////////////////////
+
     private func showCorrectMark(startPoint: CGPoint) {
         let smallMarkSize = CGFloat(10)
         let bigMarkSize = CGFloat(20)
@@ -67,18 +89,18 @@ class ConfirmationAnimatedView : UIView {
             self.first.setNeedsDisplay()
         }, delayFactor: 0.7)
 
-        firstLineAnimator.addCompletion({ _ in
+        firstLineAnimator.addCompletion { _ in
             self.second.isHidden = false
 
             let secondLineAnimator = UIViewPropertyAnimator(duration: 0.13, controlPoint1: self.controlPoint1, controlPoint2: self.controlPoint2, animations: {
                 self.second.frame = CGRect(x: self.second.frame.origin.x - 2, y: self.second.frame.origin.y - bigMarkSize, width: bigMarkSize, height: bigMarkSize)
                 self.second.setNeedsDisplay()
             })
-            secondLineAnimator.addCompletion({ _ in
+            secondLineAnimator.addCompletion { _ in
                 self.finish()
-            })
+            }
             secondLineAnimator.startAnimation()
-        })
+        }
         firstLineAnimator.startAnimation()
     }
     
