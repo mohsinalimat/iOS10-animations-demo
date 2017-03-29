@@ -20,20 +20,8 @@ import UIKit
 class ConfirmationAnimatedView : UIView {
     
     typealias Action = () -> ()
-    
     var didFinish: Action?
-    
-    private let kHeightWithBounceFixView: CGFloat = 88
-    private let kConfirmationFinalSize: CGFloat = 60
-    
-    private var first: LineView!
-    private var second: LineView!
-    
-    private var dotView : DotView!
 
-    private let controlPoint1 = CGPoint(x: 0.25, y: 0.1)
-    private let controlPoint2 = CGPoint(x: 0.25, y: 1)
-    
     init(color: UIColor) {
         super.init(frame: CGRect.zero)
         
@@ -56,10 +44,13 @@ class ConfirmationAnimatedView : UIView {
         first.alpha = 1
         second.alpha = 1
 
-        UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.9, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-            self.dotView.frame = CGRect(x: startPoint.x - self.kConfirmationFinalSize / 2, y: startPoint.y - self.kConfirmationFinalSize / 2, width: self.kConfirmationFinalSize, height: self.kConfirmationFinalSize)
-        }, completion : nil)
+        let springParameters = UISpringTimingParameters(mass: 2.2, stiffness: 300, damping: 30, initialVelocity: CGVector(dx: 0, dy: 0))
 
+        let springAnimator = UIViewPropertyAnimator(duration: 0.0, timingParameters: springParameters)
+        springAnimator.addAnimations {
+            self.dotView.frame = CGRect(x: startPoint.x - self.kConfirmationFinalSize / 2, y: startPoint.y - self.kConfirmationFinalSize / 2, width: self.kConfirmationFinalSize, height: self.kConfirmationFinalSize)
+        }
+        springAnimator.startAnimation()
         showCorrectMark(startPoint: startPoint)
     }
 
@@ -71,10 +62,22 @@ class ConfirmationAnimatedView : UIView {
         self.dotView.center = to
     }
 
-
+    
+    /////////////////////////////////////////////////////////////////////////
+    //
     // MARK: - Private
     //
-    /////////////////////////////////////////////////////////////////////////////
+
+    private let kConfirmationFinalSize: CGFloat = 60
+    private let kConfirmationOffsetHeight: CGFloat = 30
+
+    private var first: LineView!
+    private var second: LineView!
+
+    private var dotView : DotView!
+
+    private let controlPoint1 = CGPoint(x: 0.25, y: 0.1)
+    private let controlPoint2 = CGPoint(x: 0.25, y: 1)
 
     private func showCorrectMark(startPoint: CGPoint) {
         let smallMarkSize = CGFloat(10)
@@ -121,9 +124,9 @@ class ConfirmationAnimatedView : UIView {
             let center = self.dotView.center
             self.first.alpha = 0
             self.second.alpha = 0
-            self.first.frame = CGRect(x: center.x, y: center.y - 30, width: 0, height: 0)
-            self.second.frame = CGRect(x: center.x, y: center.y - 30, width: 0, height: 0)
-            self.dotView.frame = CGRect(x: center.x - kDotSize / 2, y: center.y - kDotSize / 2 - 30, width: 15, height: 15)
+            self.first.frame = CGRect(x: center.x, y: center.y - self.kConfirmationOffsetHeight, width: 0, height: 0)
+            self.second.frame = CGRect(x: center.x, y: center.y - self.kConfirmationOffsetHeight, width: 0, height: 0)
+            self.dotView.frame = CGRect(x: center.x - kDotSize / 2, y: center.y - kDotSize / 2 - self.kConfirmationOffsetHeight, width: kDotSize, height: kDotSize)
         }, delayFactor: 0.8)
 
         finishConfirmationAnimator.addCompletion { _ in

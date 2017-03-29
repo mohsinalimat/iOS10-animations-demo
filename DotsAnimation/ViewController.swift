@@ -25,23 +25,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var logoImageView: UIImageView!
     
-    private let kAnimationHeight: CGFloat = 24
-    private let kDotsJumpsCountMax = 5
-    
-    private let controlPoint1 = CGPoint(x: 0.25, y: 0.1)
-    private let controlPoint2 = CGPoint(x: 0.25, y: 1)
-    
-    private let dotViewLeft = DotView(color: UIColor.appBrandColor())
-    private let dotViewCenter = DotView(color: UIColor.appBrandColor())
-    private let dotViewRight = DotView(color: UIColor.appBrandColor())
-    
-    private var dotsUpAnimator: [UIViewPropertyAnimator] = []
-    private var timer: Timer?
-    private var toTop = true
-    private var buttonCenter: CGPoint!
-
-    private var dotsJumpsCount = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         progressLabel.alpha = 0.0
@@ -54,12 +37,36 @@ class ViewController: UIViewController {
     @IBAction func startAnimationTapped(_ sender: AnyObject) {
         animateJumpUp()
     }
+
+    
+    /////////////////////////////////////////////////////////////////////////
+    //
+    // MARK: - Private
+    //
+
+    private let kAnimationHeight: CGFloat = 24
+    private let kInitialTopSpacing: CGFloat = 150
+    private let kDotsJumpsCountMax = 5
+
+    private let controlPoint1 = CGPoint(x: 0.25, y: 0.1)
+    private let controlPoint2 = CGPoint(x: 0.25, y: 1)
+
+    private let dotViewLeft = DotView(color: UIColor.appBrandColor())
+    private let dotViewCenter = DotView(color: UIColor.appBrandColor())
+    private let dotViewRight = DotView(color: UIColor.appBrandColor())
+
+    private var dotsUpAnimator: [UIViewPropertyAnimator] = []
+    private var timer: Timer?
+    private var toTop = true
+    private var buttonCenter: CGPoint!
+
+    private var dotsJumpsCount = 0
     
     private func animateJumpUp() {
         self.buttonCenter = fakeButtonView.center
         self.startButton.alpha = 0
         let animator = UIViewPropertyAnimator(duration: 0.3, controlPoint1: controlPoint1, controlPoint2: controlPoint2, animations: {
-            self.fakeButtonView.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+            self.fakeButtonView.frame = CGRect(x: 0, y: 0, width: kDotSize, height: kDotSize)
             self.fakeButtonView.center = self.buttonCenter
             self.fakeButtonView.layer.cornerRadius = 7.0
             self.descriptionLabel.alpha = 0
@@ -109,12 +116,12 @@ class ViewController: UIViewController {
                 let confirmationAnimatedView = ConfirmationAnimatedView(color: UIColor.appBrandColor())
                 self.view.addSubview(confirmationAnimatedView)
                 confirmationAnimatedView.didFinish = {
-                        self.fakeButtonView.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+                        self.fakeButtonView.frame = CGRect(x: 0, y: 0, width: kDotSize, height: kDotSize)
                         self.fakeButtonView.center = confirmationAnimatedView.dotViewCenter()
                         confirmationAnimatedView.removeFromSuperview()
                         self.animateJumpDown()
                     }
-                confirmationAnimatedView.showConfirmation(startPoint: CGPoint(x: self.view.center.x, y: 150))
+                confirmationAnimatedView.showConfirmation(startPoint: CGPoint(x: self.view.center.x, y: self.kInitialTopSpacing))
             })
         }
         animator.startAnimation()
@@ -141,7 +148,7 @@ class ViewController: UIViewController {
         dotsUpAnimator.append(dotRightAnimator)
     }
     
-    func startReversedDotsAnimation() {
+    @objc private func startReversedDotsAnimation() {
         if dotsJumpsCount < kDotsJumpsCountMax {
 
             dotsJumpsCount += 1
@@ -233,7 +240,7 @@ class ViewController: UIViewController {
     }
     
     private func centerPoint() -> CGPoint {
-        return CGPoint(x: self.view.center.x, y: 150)
+        return CGPoint(x: self.view.center.x, y: self.kInitialTopSpacing)
     }
 }
 
