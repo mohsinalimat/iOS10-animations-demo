@@ -1,8 +1,8 @@
 # iOS 10 Animation demo
 
-**DotsAnimation** sample is a sequence of series of different, separate animations, created to demonstrate using iOS 10 Animations API, described in [the article](link to published article).
+**DotsAnimation sample** is a sequence of series of different, separate animations, created to demonstrate using iOS 10 Animations API, described in [the article](link to published article).
 
-![Dots Animation Gif](https://d3uepj124s5rcx.cloudfront.net/items/0d1l2M2X3X0I0M3R3y22/ezgif.com-optimize.gif?v=f6deb6ba "Dots Animation")
+![Dots Animation Gif](https://d3uepj124s5rcx.cloudfront.net/items/3G251D0V282k2X2G1r12/framed-dots-animation.gif?v=fbf26ae1 "Dots Animation")
 
  #### Here are some of the things that you’ll find in the code
  
@@ -11,7 +11,7 @@
     * New *UISpringTimingParameters* that allow manipulating the mass, stiffness, damping, and initial velocity parameters;
  * Adding new animation blocks to existing objects on the fly (take a look into *ViewController.startReversedDotsAnimation* method);
  * Adding completion action on the fly (it's used to begin new animations phase, when the third dot is finishing its last jump);
- * And other possibilities of working with *UIViewPropertyAnimator* objects.
+ * Other possibilities of working with *UIViewPropertyAnimator* objects.
  
  #### Backward compatibility
 
