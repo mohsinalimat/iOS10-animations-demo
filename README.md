@@ -2,7 +2,7 @@
 
 **DotsAnimation sample** is a sequence of series of different, separate animations, created to demonstrate using iOS 10 Animations API, described in [the article](link to published article).
 
-![Dots Animation Gif](https://d3uepj124s5rcx.cloudfront.net/items/3G251D0V282k2X2G1r12/framed-dots-animation.gif?v=fbf26ae1 "Dots Animation")
+![Dots Animation Gif](https://d3uepj124s5rcx.cloudfront.net/items/3W0h3s233t3Y1U3u3p0h/framed-demo-animation.gif?v=ca389f87 "Dots Animation")
 
  #### Here are some of the things that you’ll find in the code
  
